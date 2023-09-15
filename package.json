@@ -1,0 +1,28 @@
+{
+  "name": "quickapi",
+  "version": "0.0.1",
+  "description": "Quick to set up, easy to use, simple to expand.",
+  "main": "quickapi.js",
+  "type": "module",
+  "scripts": {
+    "test": "node test/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sym-sergei-vasilenko/quickapi.git"
+  },
+  "keywords": [
+    "fetch",
+    "api",
+    "http",
+    "https",
+    "expandable",
+    "customizable"
+  ],
+  "author": "Sergei Vasilenko",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sym-sergei-vasilenko/quickapi/issues"
+  },
+  "homepage": "https://github.com/sym-sergei-vasilenko/quickapi#readme"
+}

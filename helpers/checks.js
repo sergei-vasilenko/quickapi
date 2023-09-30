@@ -39,4 +39,33 @@ const type = (value) => {
   return baseType;
 };
 
-export { None, isNone, isFn, hasKey, type };
+const schemaMatches = (object, schema) => {
+  const currentPath = [];
+  const inconsistencies = [];
+
+  const worker = (target) => {
+    console.log({ target });
+    if (["Object", "Array"].includes(type(target))) {
+      Object.entries(target).forEach(([schemaKey, schemaValue]) => {
+        currentPath.push(schemaKey);
+        worker(schemaValue, schemaKey);
+      });
+    } else {
+      const objectKeyValue = findByPath(currentPath, object);
+      if (isNone(objectKeyValue)) {
+        inconsistencies.push(`Field '${currentPath.join("/")}' doesn't exist.`);
+      } else if (!target.startsWith("?") && type(objectKeyValue) !== target) {
+        inconsistencies.push(
+          `Expected type for field '${currentPath.join(
+            "/"
+          )}' '${target}', actual - '${type(objectKeyValue)}'.`
+        );
+      }
+    }
+    currentPath.pop();
+  };
+  worker(schema);
+  return inconsistencies;
+};
+
+export { None, isNone, isFn, hasKey, type, schemaMatches };

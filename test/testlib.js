@@ -1,6 +1,3 @@
-import { findByPath } from "../helpers/finders.js";
-import { type, isNone } from "../helpers/checks.js";
-
 const MESSAGE_OK = "Ok";
 const MESSAGE_FAIL = "Result doesn't match";
 
@@ -91,38 +88,6 @@ const checkExpression = (
   }
 };
 
-const schemaMatches = (object, schema) => {
-  const currentPath = [];
-  const inconsistencies = [];
-
-  const worker = (target) => {
-    if (typeof target === "object" && target !== null) {
-      for (const [schemaKey, schemaValue] of Object.entries(target)) {
-        currentPath.push(schemaKey);
-        worker(schemaValue, schemaKey);
-      }
-    } else {
-      const objectKeyValue = findByPath(currentPath, object);
-      if (isNone(objectKeyValue)) {
-        inconsistencies.push(`Field '${currentPath.join("/")}' doesn't exist.`);
-      } else if (!target.startsWith("?") && type(objectKeyValue) !== target) {
-        inconsistencies.push(
-          `Expected type for field '${currentPath.join(
-            "/"
-          )}' '${target}', actual - '${type(objectKeyValue)}'.`
-        );
-      }
-    }
-    currentPath.pop();
-  };
-  worker(schema);
-  if (inconsistencies.length) {
-    for (const message of inconsistencies) {
-      testsStatus.add(message, "fail");
-    }
-  }
-};
-
 const equal = (
   description,
   left,
@@ -163,7 +128,6 @@ const functions = {
   checkExpression,
   equal,
   unequal,
-  schemaMatches,
 };
 
 const group = (name, handler) => {

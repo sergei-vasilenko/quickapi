@@ -1,7 +1,7 @@
-import { test } from "./testlib.js";
+import { schemaMatches } from "../helpers/checks.js";
 import prepareConfig from "../lib/prepareConfig.js";
-import config from "../schemas/applicationConfigurations.js";
+import applicationConfigurations from "../schemas/applicationConfigurations.js";
 
-test("prepareConfig", ({ group, schemaMatches }) => {
-  const result = prepareConfig();
-});
+const result = prepareConfig();
+
+const checksResult = schemaMatches(result, applicationConfigurations);

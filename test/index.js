@@ -1,4 +1,4 @@
-const tests = ['initialApp', 'mergeConfigs', 'prepareConfig'];
+const tests = ["initialApp", "mergeConfigs", "prepareConfig"];
 
 const launcher = async () => {
   const args = process.argv.slice(2);

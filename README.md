@@ -10,7 +10,7 @@ Wrapper over the fetch.
 When you first call the function, you can pass three parameters: `host`, `?globalOptions` and `?credentials`.
 
 Then you can configure the application in a chain:
-- `extention` `<Object>` - expand the functionality of the application.
+- `plugin` `<Object>` - expand the functionality of the application.
 - `module`: `<Object>` - to add a module. Modules are designed to group methods of working with the server.
 - `interseptor`: `type <String>` `handler <Function>` - request processing. `type [ requestbefore | requesterror | responsebefore | responseerror ]`.
 - `separator`: `<String>` - separator character.
@@ -25,8 +25,8 @@ const credentials = "include";
 
 const prepareApi = quickApi(host, globalOptions, credentials);
 const api = prepareApi
-  .extention(onlyLastExt)
-  .extention(relaunchExt)
+  .plugin(onlyLastExt)
+  .plugin(relaunchExt)
   .module(postsModule)("dev");
 
 (async () => {
